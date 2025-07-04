@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bushcraft Survival</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <meta name="description" content="Michael Jared Software is an indie game studio creating Bushcraft Survival - we are now hiring roles for UI/UX Designer, Producer, 3D/VFX Generalist, and Writer!">
+    <meta property="og:title" content="Bushcraft Survival - Michael Jared Software" />
+    <meta property="og:description" content="Explore, craft, and survive in this dark, wilderness survival game. Created by Michael Jared Software." />
+    <meta property="og:image" content="https://www.bushcraftsurvivalgame.com/bushcraft_cover.jpg" />
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://www.bushcraftsurvivalgame.com/" />
+    <meta property="og:type" content="website" />
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: serif;
+            font-size: 1.3em;
+        }
+
+        body, h1, a, button {
+            font-family: "Ancizar Serif", serif;
+            font-optical-sizing: auto;
+        }
+        
+        #video-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -1;	
+        }
+        .content {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0%);
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 6px #000;
+
+            width: 90vw;
+            max-width: 550px;
+            padding: 0 1rem; 
+            box-sizing: border-box;
+        }
+        .content h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .buttons a {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.75rem 1.5rem;
+            border: 2px solid white;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .buttons a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 600px) {
+            .content h1 {
+                font-size: 2rem;
+            }
+            
+            .buttons a {
+                padding: 0.5rem 1.2rem;
+                font-size: 1rem;
+            }
+        }
+        @keyframes vignettePulse {
+            0%, 100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 1.0;
+            }
+        }
+        
+        .logo {
+            width: 500px;
+            max-width: 80%;
+            height: auto;
+        }
+        
+        @media (max-width: 600px) {
+            .logo {
+                width: 600px;
+            }
+        }
+        
+        .audio-button {
+            margin-top: 2rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid white;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            transition: background 0.3s, opacity 1s;
+            z-index: 10;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        
+        .audio-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .audio-button.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .focus-blur-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+
+            mask-image: radial-gradient(circle 700px at 65% 60%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+            -webkit-mask-image: radial-gradient(circle 700px at 65% 60%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+        }
+        .vignette {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 20;
+            background: radial-gradient(
+            ellipse at center,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0.7) 100%
+            );
+            animation: vignettePulse 15s ease-in-out infinite;
+            opacity: 0.6; /* starting opacity */
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <video id="video-bg" muted autoplay loop playsinline preload>
+        <source src="background.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="focus-blur-overlay"></div>
+
+    
+    <div class="vignette"></div>
+    
+    <div class="content">
+        <div style="margin-top: 80px; "><img src="logo.svg" alt="Bushcraft Survival Logo" class="logo" /></div>
+        <div style="margin-bottom: 40px; margin-top: 40px;"><button id="enable-audio" class="audio-button">🌲🎧  The Wilderness Awaits</button></div>
+        <div class="buttons">
+            <a href="https://store.steampowered.com/app/3529110/Bushcraft_Survival/" target="_blank">WISHLIST</a>
+            <a href="https://discord.gg/UyefbSJ3Hf" target="_blank">DISCORD</a>
+        </div>
+        
+    </div>
+    
+    <script>
+        const video = document.getElementById("video-bg");
+        const button = document.getElementById("enable-audio");
+        let hasUnmuted = false;
+        
+        button.addEventListener("click", async () => {
+            if (hasUnmuted) return;
+            hasUnmuted = true;
+            
+            try {
+                // Set up Web Audio API
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const sourceNode = audioContext.createMediaElementSource(video);
+                const gainNode = audioContext.createGain();
+                
+                sourceNode.connect(gainNode).connect(audioContext.destination);
+                
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                video.muted = false;
+                
+                await audioContext.resume();
+                
+                // Fade in over 3 seconds
+                gainNode.gain.linearRampToValueAtTime(1.0, audioContext.currentTime + 3);
+                
+                // Fade out the button smoothly
+                button.classList.add("hidden");
+                
+                // Optionally remove from DOM after fade
+                setTimeout(() => {
+                    button.style.visibility = "hidden";
+                }, 1000);
+                
+            } catch (err) {
+                console.error("Failed to start audio:", err);
+            }
+        });
+    </script>
+    
+</body>
+</html>
